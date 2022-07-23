@@ -2,15 +2,11 @@
 // WHEN I open the planner
 // THEN the current day is displayed at the top of the calendar
 var dayEl = $("#currentDay");
-var timeEl = $("<p>")
 var hourEl = $(".hour");
 
 function getTime() {
-  setInterval(function () {
-    currentTime = moment().format("MMM Do, YYYY, hh:mm:ss A");
-    timeEl.text(currentTime);
-    dayEl.append(timeEl);
-  }, 0);
+    $('#currentDay').text(moment().format("MMM Do, YYYY"));
+  
 }
 
 
@@ -20,7 +16,16 @@ function getTime() {
 // WHEN I view the time blocks for that day
 // THEN each time block is color-coded to indicate whether it is in the past, present, or future
 function checkTimeBlock () {
+  var timeBlockEl = $('.timeblock');
+  var currentHour = moment().format("hA");
+  console.log(currentHour);
 
+  var timeBlockHour = $(hourEl).text();
+  console.log(timeBlockHour);
+
+  if (timeBlockHour.isBefore(currentHour)){
+    timeBlockEl.addClass('past');
+  }
 }
 // WHEN I click into a time block
 // THEN I can enter an event
@@ -29,4 +34,6 @@ function checkTimeBlock () {
 // WHEN I refresh the page
 // THEN the saved events persist
 
+
 getTime();
+checkTimeBlock();
