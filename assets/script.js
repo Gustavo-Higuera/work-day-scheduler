@@ -2,7 +2,8 @@
 // WHEN I open the planner
 // THEN the current day is displayed at the top of the calendar
 var dayEl = $("#currentDay");
-var hourEl = $(".hour");
+
+var btnEl = $(".save-btn");
 
 function getDate() {
   $(dayEl).text(moment().format("MMM Do, YYYY"));
@@ -44,8 +45,24 @@ function checkTimeBlock() {
   })
 }
 
+function getStorage() {
+  //Looping through each one of timeBlock textarea
+  $(".timeblock").each(function () {
+    //selecteing the Id for that textarea that' we're looping through
+    var textId = $(this).attr("id");
+    //Selecting the text value from local storage, using the velue text id that we got above
+    var textValue = localStorage.getItem(textId)
+    //display the text Value on each one of the text area
+    $(this).val(textValue)
+  })
+}
 
-
+btnEl.on("click", function () {
+  var textValue = $(this).siblings(".timeblock").val();
+  console.log(textValue);
+  var textId = $(this).siblings(".timeblock").attr("id");
+  localStorage.setItem(textId, textValue)
+})
 
 
 // WHEN I click into a time block
@@ -55,6 +72,6 @@ function checkTimeBlock() {
 // WHEN I refresh the page
 // THEN the saved events persist
 
-
+getStorage();
 getDate();
 checkTimeBlock();
