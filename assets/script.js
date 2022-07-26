@@ -6,7 +6,9 @@ var dayEl = $("#currentDay");
 var btnEl = $(".save-btn");
 
 function getDate() {
-  $(dayEl).text(moment().format("MMM Do, YYYY"));
+  setInterval(() => {
+    $(dayEl).text(moment().format("MMMM Do, YYYY hh:mm:ssa"));
+  }, 0);
 
 }
 
